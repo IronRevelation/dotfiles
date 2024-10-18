@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -63,7 +63,7 @@
     statix
     nixfmt
     fd
-    # inputs.nixvim.packages.${pkgs.system}.default
+    inputs.nixvim.packages.${pkgs.system}.default
     # # Adds the 'hello' command to your environment. It prints a friendly
 
     # # "Hello, world!" when run.

@@ -10,7 +10,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix";
     
-    # nixvim.url = "github:IronRevelation/nixvim";
+    nixvim.url = "github:IronRevelation/nixvim";
 
     # or any branch you want:
     # nixpkgs.url = "nixpkgs/{BRANCH-NAME}";
@@ -25,14 +25,15 @@
       nixosConfigurations = {
         nixos = lib.nixosSystem {
           inherit system;
-          # specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs; };
           modules = [ 
 	    ./configuration.nix
-            home-manager.nixosModules.default 
+            home-manager.nixosModules.home-manager
             {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.mattia = import ./home.nix;
+            home-manager.extraSpecialArgs = { inherit inputs; };
             }
 	    inputs.stylix.nixosModules.stylix
 	  ];
