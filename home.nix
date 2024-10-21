@@ -27,7 +27,6 @@
   # release notes.
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
-
   # stylix.targets.hyprpaper.enable = false;
   # stylix.targets.hyprland.enable = false;
 
@@ -59,11 +58,14 @@
     obsidian
     rustup
     jetbrains.rust-rover
+    jetbrains.clion
     gcc
+    gnumake
     statix
     nixfmt
     fd
     inputs.nixvim.packages.${pkgs.system}.default
+    gedit
     # # Adds the 'hello' command to your environment. It prints a friendly
 
     # # "Hello, world!" when run.
@@ -82,16 +84,12 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
-  
 
   programs.git = {
-    enable = true; 
-    extraConfig = {
-      init.defaultBranch = "main";
-    };
+    enable = true;
+    extraConfig = { init.defaultBranch = "main"; };
   };
-  
- 
+
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
@@ -106,11 +104,11 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
   };
-  
+
   services.nextcloud-client = {
     enable = true;
     startInBackground = true;
-  }; 
+  };
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
@@ -129,8 +127,8 @@
   #  /etc/profiles/per-user/mattia/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-     EDITOR = "nvim";
-     TERMINAL = "alacritty";
+    EDITOR = "nvim";
+    TERMINAL = "alacritty";
   };
 
 }

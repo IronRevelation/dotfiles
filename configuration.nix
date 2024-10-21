@@ -3,25 +3,24 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, inputs, ... }:
-let 
-     tokyo-night-sddm = pkgs.libsForQt5.callPackage ./tokyo-night-sddm/default.nix { };
-in
-{
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./system/hyprland/hyprland.nix
-      ./system/nvidia/nvidia.nix
-      ./system/sddm/sddm.nix
-      ./system/stylix.nix
+let
+  tokyo-night-sddm =
+    pkgs.libsForQt5.callPackage ./tokyo-night-sddm/default.nix { };
+in {
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./system/hyprland/hyprland.nix
+    ./system/nvidia/nvidia.nix
+    ./system/sddm/sddm.nix
+    ./system/stylix.nix
+    ./system/flutter.nix
   ];
 
   # Bootloader.
-#  boot.loader.systemd-boot.enable = true;
-#  boot.loader.efi.canTouchEfiVariables = true;
+  #  boot.loader.systemd-boot.enable = true;
+  #  boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
 
-  
   boot.loader = {
     efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/boot";
@@ -62,7 +61,6 @@ in
     LC_TIME = "it_IT.UTF-8";
   };
 
-
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -95,10 +93,11 @@ in
   users.users.mattia = {
     isNormalUser = true;
     description = "mattia";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    #  thunderbird
-    ];
+    extraGroups = [ "networkmanager" "wheel" "kvm" ];
+    packages = with pkgs;
+      [
+        #  thunderbird
+      ];
   };
 
   # Install firefox.
@@ -127,7 +126,7 @@ in
     qt5.qtwayland
     qt6.qtwayland
     libnotify
-    glib 
+    glib
     git
     wl-clipboard
     (cliphist.overrideAttrs (_old: {
@@ -136,8 +135,8 @@ in
         repo = "cliphist";
         rev = "c49dcd26168f704324d90d23b9381f39c30572bd";
         sha256 = "sha256-2mn55DeF8Yxq5jwQAjAcvZAwAg+pZ4BkEitP6S2N0HY=";
-     };
-    vendorHash = "sha256-M5n7/QWQ5POWE4hSCMa0+GOVhEDCOILYqkSYIGoy/l0=";
+      };
+      vendorHash = "sha256-M5n7/QWQ5POWE4hSCMa0+GOVhEDCOILYqkSYIGoy/l0=";
     }))
     networkmanagerapplet
     killall
@@ -147,18 +146,13 @@ in
     gvfs
   ];
 
-  
-  fonts.packages = with pkgs; [
-    jetbrains-mono
-    nerdfonts
-  ];
- 
-  security.pam.services.hyprlock = {};
+  fonts.packages = with pkgs; [ jetbrains-mono nerdfonts ];
+
+  security.pam.services.hyprlock = { };
 
   security.polkit.enable = true;
 
   programs.ssh.startAgent = true;
-
 
   qt = {
     enable = true;
