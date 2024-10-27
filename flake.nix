@@ -9,7 +9,7 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix";
-    
+
     nixvim.url = "github:IronRevelation/nixvim";
 
     # or any branch you want:
@@ -26,18 +26,18 @@
         nixos = lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs; };
-          modules = [ 
-	    ./configuration.nix
+          modules = [
+            ./configuration.nix
             home-manager.nixosModules.home-manager
             {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.mattia = import ./home.nix;
-            home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.mattia = import ./home.nix;
+              home-manager.extraSpecialArgs = { inherit inputs; };
             }
-	    inputs.stylix.nixosModules.stylix
-	  ];
+            inputs.stylix.nixosModules.stylix
+          ];
+        };
       };
     };
-  };
 }

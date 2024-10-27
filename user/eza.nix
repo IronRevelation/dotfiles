@@ -1,14 +1,10 @@
-{ config, lib, ... }:
-{
+{ config, lib, ... }: {
 
   programs.eza = {
     enable = true;
     enableZshIntegration = true;
-    icons = true;
-    extraOptions = [
-      "-a"
-      "--color=always"
-    ];
+    icons = "auto";
+    extraOptions = [ "-a" "--color=always" ];
   };
 
 }

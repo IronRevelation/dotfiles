@@ -1,5 +1,6 @@
-{ config, lib, ... }:
-{
+{ config, lib, ... }: {
+
+  xdg.configFile."wlogout/assets".source = ./assets;
 
   programs.wlogout = {
     enable = true;
@@ -42,55 +43,55 @@
     ];
 
     style = ''
-      window {
-	background-color: rgba(0, 0, 0, 0);
-      }
-      button {
-        color: #FFFFFF;
-        font-family: "JetBrainsMono Nerd Font";
-	background-color: #1A1B26;
+            window {
+      	background-color: rgba(0, 0, 0, 0);
+            }
+            button {
+              color: #FFFFFF;
+              font-family: "JetBrainsMono Nerd Font";
+      	background-color: #1A1B26;
 
-        border-radius: 0px;
-	border-style: none;
-	border-width: 0px;
-	
-        background-repeat: no-repeat;
-	background-position: center;
-	background-size: 25%;
-     }
+              border-radius: 0px;
+      	border-style: none;
+      	border-width: 0px;
+      	
+              background-repeat: no-repeat;
+      	background-position: center;
+      	background-size: 25%;
+           }
 
-     button:focus, button:active, button:hover {
-	background-color: #7AA2F7;
-	outline-style: solid;
-     }
+           button:focus, button:active, button:hover {
+      	   background-color: #7AA2F7;
+      	   outline-style: solid;
+           }
 
-     #lock, #logout, #suspend, #hibernate, #shutdown, #reboot {
-       opacity: 0.9;
-     }
-     #lock {
-      background-image: image(url("~/.dotfiles/user/wlogout/assets/lock.svg"));
-     }
+           #lock, #logout, #suspend, #hibernate, #shutdown, #reboot {
+             opacity: 0.9;
+           }
+           #lock {
+            background-image: image(url("./assets/lock.svg"));
+           }
 
-    #logout {
-      background-image: image(url("~/.dotfiles/user/wlogout/assets/logout.svg"));
-    }
+          #logout {
+            background-image: image(url("./assets/logout.svg"));
+          }
 
-    #suspend {
-      background-image: image(url("~/.dotfiles/user/wlogout/assets/suspend.svg"));
-    }
+          #suspend {
+            background-image: image(url("./assets/suspend.svg"));
+          }
 
-    #hibernate {
-      background-image: image(url("~/.dotfiles/user/wlogout/assets/hibernate.svg"));
-    }
+          #hibernate {
+            background-image: image(url("./assets/hibernate.svg"));
+          }
 
-    #shutdown {
-      background-image: image(url("~/.dotfiles/user/wlogout/assets/shutdown.svg"));
-    }
+          #shutdown {
+            background-image: image(url("./assets/shutdown.svg"));
+          }
 
-    #reboot {
-     background-image: image(url("~/.dotfiles/user/wlogout/assets/reboot.svg"));
-    }
-         '';
+          #reboot {
+           background-image: image(url("./assets/reboot.svg"));
+          }
+    '';
   };
 
 }

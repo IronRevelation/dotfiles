@@ -6,11 +6,21 @@
     flutter
     ninja
     pkg-config
+    jdk11
   ];
 
   programs = { adb.enable = true; };
 
   users.users.mattia = { extraGroups = [ "adbusers" ]; };
+
+  #android = {
+  #  android-studio.enable = true;
+  #  emulator.enable = true;
+  #  ndk.enable = true;
+  #  buildTools.version = [ "34.0.0" ];
+  #};
+
+  #environment.sessionVariables = { JAVA_HOME = "${pkgs.android-studio}/jbr"; };
 
   system.userActivationScripts = {
     stdio = {

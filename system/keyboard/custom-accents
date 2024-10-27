@@ -1,0 +1,10 @@
+partial alphanumeric_keys
+xkb_symbols "custom_accents" {
+    include "us(basic)"
+
+    key <BKSL> { 
+        type = "THREE_LEVEL",
+        symbols[Group1] = [ backslash, bar, ugrave ]    
+    };
+
+};

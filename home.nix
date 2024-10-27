@@ -12,6 +12,7 @@
     ./user/zsh/zsh.nix
     ./user/eza.nix
     ./user/fzf.nix
+    ./user/kanata/kanata.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -66,6 +67,10 @@
     fd
     inputs.nixvim.packages.${pkgs.system}.default
     gedit
+    youtube-music
+    protonvpn-gui
+    deluge-gtk
+    handbrake
     # # Adds the 'hello' command to your environment. It prints a friendly
 
     # # "Hello, world!" when run.

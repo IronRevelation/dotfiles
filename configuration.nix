@@ -14,6 +14,8 @@ in {
     ./system/sddm/sddm.nix
     ./system/stylix.nix
     ./system/flutter.nix
+    ./system/kanata.nix
+    ./system/keyboard/keyboard.nix
   ];
 
   # Bootloader.
@@ -62,10 +64,36 @@ in {
   };
 
   # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
+  #  services.xserver.xkb = {
+  #layout = "custom_us";
+  #options = "lv3:ralt_switch";
+  #extraLayouts.custom_us = {
+  #  languages = [ "eng" ];
+  #  description = "US layout with custom accent letters";
+  #  symbolsFile = builtins.toFile "custom_us" ''
+  #    default
+  #    partial alphanumeric_keys
+  #    xkb_symbols "custom_us" {
+  #        include "us(basic)"
+  #
+  #        name[Group1]= "US (Custom)";
+  #
+  #        key <AD11> { [ bracketleft, braceleft, egrave, eacute ] };
+  #
+  #        key <AC11> { [ semicolon, colon, ograve ] };
+  #
+  #        key <AC10> { [ apostrophe, quotedbl, agrave ] };
+  #
+  #        key <AE12> { [ equal, plus, igrave, asciitilde ] };
+  #
+  #        key <AE11> { [ minus, underscore, grave ] };
+  #
+  #        key <BKSL> { [ backslash, bar, ugrave ] };
+  #    };
+  #  '';
+  #
+  #};
+  #};
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -112,6 +140,26 @@ in {
   services.xserver.enable = true;
 
   services.gvfs.enable = true;
+
+  services.kanata.enable = true;
+
+  systemd.user.services = {
+    polkit-gnome-authentication-agent-1 = {
+      description = "polkit-gnome-authentication-agent-1";
+      wantedBy = [ "graphical-session.target" ];
+      wants = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart =
+          "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
+    };
+  };
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -144,11 +192,16 @@ in {
     pavucontrol
     pamixer
     gvfs
+    ffmpeg
+    gnome-keyring
   ];
 
   fonts.packages = with pkgs; [ jetbrains-mono nerdfonts ];
 
   security.pam.services.hyprlock = { };
+
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.hyprland.enableGnomeKeyring = true;
 
   security.polkit.enable = true;
 
