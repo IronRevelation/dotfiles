@@ -10,7 +10,7 @@
 (defalias
   ;; Define tap-hold for CapsLock
   ;; tap: esc, hold: lctl
-  cesc (tap-hold 200 200 esc lctl)
+  cesc (tap-hold 300 300 esc lctl)
 )
 
 (deflayer default
