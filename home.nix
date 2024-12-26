@@ -1,4 +1,10 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ghostty,
+  ...
+}:
 
 {
   imports = [
@@ -9,10 +15,12 @@
     ./user/wofi/wofi.nix
     ./user/style/style.nix
     ./user/wlogout/wlogout.nix
-    ./user/zsh/zsh.nix
+    ./user/shell/shell.nix
     ./user/eza.nix
     ./user/fzf.nix
-    ./user/kanata/kanata.nix
+    ./user/neovim/neovim.nix
+    ./user/zellij/zellij.nix
+    ./user/tmux/tmux.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -28,15 +36,19 @@
   # release notes.
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
-  # stylix.targets.hyprpaper.enable = false;
+  stylix.targets.hyprpaper.enable = false;
+  stylix.targets.hyprlock.enable = false;
+  stylix.targets.neovim.enable = false;
+  stylix.targets.zellij.enable = false;
   # stylix.targets.hyprland.enable = false;
 
   programs.alacritty.enable = true;
   programs.bat.enable = true;
   programs.zoxide.enable = true;
   programs.zoxide.enableZshIntegration = true;
+  programs.zoxide.enableFishIntegration = true;
 
-  #programs.neovim.enable = true;
+  # programs.neovim.enable = true;
   #programs.kdePackages.dolphin.enable = true;
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -47,6 +59,10 @@
     hypridle
     hyprcursor
     grimblast
+    hyprshot
+    grim
+    wayshot
+    slurp
     ferdium
     mission-center
     file-roller
@@ -63,16 +79,25 @@
     gcc
     gnumake
     statix
-    nixfmt
+    nixfmt-rfc-style
     fd
-    inputs.nixvim.packages.${pkgs.system}.default
+    #inputs.nixvim.packages.${pkgs.system}.default
     gedit
     youtube-music
     protonvpn-gui
     deluge-gtk
     openai-whisper
     handbrake
-    prismlauncher
+    chromium
+    shotwell
+    fastfetch
+    davinci-resolve
+    ripgrep
+    foliate
+    cloc
+    yt-dlp
+    steam
+    ghostty.packages.x86_64-linux.default
     # # Adds the 'hello' command to your environment. It prints a friendly
 
     # # "Hello, world!" when run.
@@ -94,7 +119,9 @@
 
   programs.git = {
     enable = true;
-    extraConfig = { init.defaultBranch = "main"; };
+    extraConfig = {
+      init.defaultBranch = "main";
+    };
   };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

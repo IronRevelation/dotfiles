@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
   environment.systemPackages = with pkgs; [
     android-studio
     clang
@@ -6,12 +12,17 @@
     flutter
     ninja
     pkg-config
-    jdk11
+    jdk17
+    android-tools
   ];
 
-  programs = { adb.enable = true; };
+  programs = {
+    adb.enable = true;
+  };
 
-  users.users.mattia = { extraGroups = [ "adbusers" ]; };
+  users.users.mattia = {
+    extraGroups = [ "adbusers" ];
+  };
 
   #android = {
   #  android-studio.enable = true;
@@ -27,6 +38,7 @@
       text = ''
         rm -f ~/Android/Sdk/platform-tools/adb
         ln -s /run/current-system/sw/bin/adb ~/Android/Sdk/platform-tools/adb
+        ln -s  ${pkgs.flutter} ~/Flutter
       '';
       deps = [ ];
     };

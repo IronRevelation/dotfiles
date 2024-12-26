@@ -2,12 +2,18 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 let
-  tokyo-night-sddm =
-    pkgs.libsForQt5.callPackage ./tokyo-night-sddm/default.nix { };
-in {
-  imports = [ # Include the results of the hardware scan.
+  tokyo-night-sddm = pkgs.libsForQt5.callPackage ./tokyo-night-sddm/default.nix { };
+in
+{
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./system/hyprland/hyprland.nix
     ./system/nvidia/nvidia.nix
@@ -15,7 +21,7 @@ in {
     ./system/stylix.nix
     ./system/flutter.nix
     ./system/kanata.nix
-    ./system/keyboard/keyboard.nix
+    #./system/keyboard/keyboard.nix
   ];
 
   # Bootloader.
@@ -98,6 +104,8 @@ in {
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  services.tumbler.enable = true;
+
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -121,18 +129,22 @@ in {
   users.users.mattia = {
     isNormalUser = true;
     description = "mattia";
-    extraGroups = [ "networkmanager" "wheel" "kvm" ];
-    packages = with pkgs;
-      [
-        #  thunderbird
-      ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "kvm"
+    ];
+    packages = with pkgs; [
+      #  thunderbird
+    ];
   };
 
   # Install firefox.
   programs.firefox.enable = true;
   programs.zsh.enable = true;
+  programs.fish.enable = true;
 
-  users.defaultUserShell = pkgs.zsh;
+  users.defaultUserShell = pkgs.fish;
 
   services.udisks2.enable = true;
 
@@ -151,8 +163,7 @@ in {
       after = [ "graphical-session.target" ];
       serviceConfig = {
         Type = "simple";
-        ExecStart =
-          "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
         Restart = "on-failure";
         RestartSec = 1;
         TimeoutStopSec = 10;
@@ -177,15 +188,7 @@ in {
     glib
     git
     wl-clipboard
-    (cliphist.overrideAttrs (_old: {
-      src = pkgs.fetchFromGitHub {
-        owner = "sentriz";
-        repo = "cliphist";
-        rev = "c49dcd26168f704324d90d23b9381f39c30572bd";
-        sha256 = "sha256-2mn55DeF8Yxq5jwQAjAcvZAwAg+pZ4BkEitP6S2N0HY=";
-      };
-      vendorHash = "sha256-M5n7/QWQ5POWE4hSCMa0+GOVhEDCOILYqkSYIGoy/l0=";
-    }))
+    cliphist
     networkmanagerapplet
     killall
     wget
@@ -196,7 +199,10 @@ in {
     gnome-keyring
   ];
 
-  fonts.packages = with pkgs; [ jetbrains-mono nerdfonts ];
+  fonts.packages = with pkgs; [
+    jetbrains-mono
+    nerd-fonts.jetbrains-mono
+  ];
 
   security.pam.services.hyprlock = { };
 
@@ -229,8 +235,9 @@ in {
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  #localsend ports
+  networking.firewall.allowedTCPPorts = [ 53317 ];
+  networking.firewall.allowedUDPPorts = [ 53317 ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
@@ -241,5 +248,8 @@ in {
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 }
