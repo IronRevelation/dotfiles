@@ -40,6 +40,7 @@
   stylix.targets.hyprlock.enable = false;
   stylix.targets.neovim.enable = false;
   stylix.targets.zellij.enable = false;
+  stylix.targets.qt.enable = false;
   # stylix.targets.hyprland.enable = false;
 
   programs.alacritty.enable = true;
@@ -58,6 +59,7 @@
     hyprpicker
     hypridle
     hyprcursor
+    unstable.hyprland-qtutils
     grimblast
     hyprshot
     grim
@@ -73,7 +75,8 @@
     onlyoffice-bin
     nextcloud-client
     obsidian
-    rustup
+    rustc
+    cargo
     jetbrains.rust-rover
     jetbrains.clion
     gcc
@@ -98,6 +101,11 @@
     yt-dlp
     steam
     ghostty.packages.x86_64-linux.default
+    kooha
+    #zed-editor
+    code-cursor
+    python3
+    distrobox
     # # Adds the 'hello' command to your environment. It prints a friendly
 
     # # "Hello, world!" when run.
@@ -123,6 +131,11 @@
       init.defaultBranch = "main";
     };
   };
+
+  #services.ollama = {
+  #  enable = true;
+  #  acceleration = "cuda";
+  #};
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -160,6 +173,7 @@
   #
   #  /etc/profiles/per-user/mattia/etc/profile.d/hm-session-vars.sh
   #
+
   home.sessionVariables = {
     EDITOR = "nvim";
     TERMINAL = "alacritty";

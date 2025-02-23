@@ -5,6 +5,7 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   ...
 }:
@@ -106,14 +107,17 @@ in
 
   services.tumbler.enable = true;
 
+  # services.open-webui.enable = true;
+
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
+  hardware.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
 
@@ -130,6 +134,7 @@ in
     isNormalUser = true;
     description = "mattia";
     extraGroups = [
+      "podman"
       "networkmanager"
       "wheel"
       "kvm"
@@ -171,6 +176,8 @@ in
     };
   };
 
+  programs.nix-ld.enable = true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -201,7 +208,7 @@ in
 
   fonts.packages = with pkgs; [
     jetbrains-mono
-    nerd-fonts.jetbrains-mono
+    nerdfonts
   ];
 
   security.pam.services.hyprlock = { };
@@ -216,10 +223,15 @@ in
   qt = {
     enable = true;
     platformTheme = "qt5ct";
-    style = "kvantum";
+    style = lib.mkDefault "kvantum";
   };
 
   environment.pathsToLink = [ "/share/zsh" ];
+
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

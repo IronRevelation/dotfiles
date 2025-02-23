@@ -2,10 +2,10 @@
   description = "Main flake";
 
   inputs = {
-    #nixpkgs.url = "nixpkgs/nixos-24.05";
+    nixpkgs.url = "nixpkgs/nixos-24.11";
 
     # use the following for unstable:
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix";
@@ -22,6 +22,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
       ghostty,
       ...
@@ -30,6 +31,14 @@
       lib = nixpkgs.lib;
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      overlay-unstable = final: prev: {
+        unstable = nixpkgs-unstable.legacyPackages.${system};
+      };
+      nixpkgsWithOverlays = {
+        nixpkgs = {
+          overlays = [ overlay-unstable ];
+        };
+      };
     in
     {
       nixosConfigurations = {
@@ -39,6 +48,7 @@
             inherit inputs;
           };
           modules = [
+            nixpkgsWithOverlays
             ./configuration.nix
             home-manager.nixosModules.home-manager
             {

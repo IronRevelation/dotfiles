@@ -1,6 +1,6 @@
 { config, pkg, ... }:
 {
-  programs.zellij.enable = true;
+  programs.zellij.enable = false;
 
   xdg.configFile."zellij".source = ./Zellij;
 }

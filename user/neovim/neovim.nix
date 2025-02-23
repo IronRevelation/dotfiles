@@ -15,6 +15,7 @@
       rustfmt
       vale
       clippy
+      nodePackages.cspell
     ];
   };
 }

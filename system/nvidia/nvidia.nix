@@ -17,7 +17,7 @@
   boot.kernelParams = [
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     "nvidia.NVreg_TemporaryFilePath=/var/tmp"
-    "nvidia_drm.fbdev=1"
+    "nvidia_drm.fbdev=0"
   ];
   hardware.nvidia = {
 
@@ -48,7 +48,7 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 
   environment.systemPackages = [ pkgs.nvidia-vaapi-driver ];

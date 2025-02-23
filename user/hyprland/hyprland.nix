@@ -135,10 +135,13 @@
   services.hyprpaper = {
     enable = true;
     settings.wallpaper = [
-      "DP-3, ~/.dotfiles/wallpapers/mountains.png"
+      "DP-3, ~/.dotfiles/wallpapers/ultrawide.png"
       "HDMI-A-4, ~/.dotfiles/wallpapers/mountains.png"
     ];
-    settings.preload = [ "~/.dotfiles/wallpapers/mountains.png" ];
+    settings.preload = [
+      "~/.dotfiles/wallpapers/mountains.png"
+      "~/.dotfiles/wallpapers/ultrawide.png"
+    ];
   };
   services.hypridle = {
     enable = true;
