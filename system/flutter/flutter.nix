@@ -9,11 +9,19 @@
     android-studio
     clang
     cmake
-    flutter
+    unstable.flutter
     ninja
     pkg-config
     jdk17
     android-tools
+    nodejs_23
+    (pkgs.androidenv.emulateApp {
+      name = "sdk_gphone64_x86_64";
+      platformVersion = "33";
+      abiVersion = "x86_64"; # armeabi-v7a, mips, x86_64
+      systemImageType = "google_apis_playstore";
+    })
+    (pkgs.writeShellScriptBin "flutter-watch" (builtins.readFile ./flutter-watch.sh))
   ];
 
   programs = {
@@ -33,13 +41,18 @@
 
   #environment.sessionVariables = { JAVA_HOME = "${pkgs.android-studio}/jbr"; };
 
+  nixpkgs.config = {
+    android_sdk.accept_license = true;
+    allowUnfree = true;
+  };
+
   system.userActivationScripts = {
     stdio = {
       text = ''
         rm -f ~/Android/Sdk/platform-tools/adb
         ln -s /run/current-system/sw/bin/adb ~/Android/Sdk/platform-tools/adb
         rm -f ~/Flutter
-        ln -s  ${pkgs.flutter} ~/Flutter
+        ln -s  ${pkgs.unstable.flutter} ~/Flutter
       '';
       deps = [ ];
     };

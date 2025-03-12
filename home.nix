@@ -65,7 +65,7 @@
     grim
     wayshot
     slurp
-    ferdium
+    unstable.ferdium
     mission-center
     file-roller
     localsend
@@ -78,7 +78,6 @@
     rustc
     cargo
     jetbrains.rust-rover
-    jetbrains.clion
     gcc
     gnumake
     statix
@@ -89,23 +88,24 @@
     youtube-music
     protonvpn-gui
     deluge-gtk
-    openai-whisper
     handbrake
     chromium
     shotwell
     fastfetch
-    davinci-resolve
+    #davinci-resolve
     ripgrep
     foliate
     cloc
     yt-dlp
-    steam
-    ghostty.packages.x86_64-linux.default
+    #ghostty.packages.x86_64-linux.default
     kooha
     #zed-editor
     code-cursor
     python3
     distrobox
+    unstable.devenv
+    direnv
+    (callPackage ./user/zen.nix { })
     # # Adds the 'hello' command to your environment. It prints a friendly
 
     # # "Hello, world!" when run.

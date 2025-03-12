@@ -20,8 +20,9 @@ in
     ./system/nvidia/nvidia.nix
     ./system/sddm/sddm.nix
     ./system/stylix.nix
-    ./system/flutter.nix
-    ./system/kanata.nix
+    ./system/flutter/flutter.nix
+    ./system/keyd.nix
+    #./system/kanata.nix
     #./system/keyboard/keyboard.nix
   ];
 
@@ -144,6 +145,10 @@ in
     ];
   };
 
+  nix.extraOptions = ''
+    trusted-users = root mattia
+  '';
+
   # Install firefox.
   programs.firefox.enable = true;
   programs.zsh.enable = true;
@@ -157,8 +162,6 @@ in
   services.xserver.enable = true;
 
   services.gvfs.enable = true;
-
-  services.kanata.enable = true;
 
   systemd.user.services = {
     polkit-gnome-authentication-agent-1 = {

@@ -44,6 +44,7 @@
       "cat" = "bat";
       "cd" = "z";
       "vim" = "nvim";
+      "tmux" = "tmux-default";
     };
   };
 

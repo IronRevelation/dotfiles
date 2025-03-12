@@ -13,7 +13,7 @@
       stylua
       hyprls
       rustfmt
-      vale
+      #vale
       clippy
       nodePackages.cspell
     ];

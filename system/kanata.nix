@@ -11,7 +11,7 @@
           )
 
           (defalias
-           caps (tap-hold 100 100 esc lctl)
+           caps (tap-hold-release 100 100 esc lctl)
           )
 
           (deflayer base
