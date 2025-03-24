@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   ghostty,
   ...
@@ -44,6 +45,7 @@
   # stylix.targets.hyprland.enable = false;
 
   programs.alacritty.enable = true;
+  programs.alacritty.settings.font.size = lib.mkForce 16;
   programs.bat.enable = true;
   programs.zoxide.enable = true;
   programs.zoxide.enableZshIntegration = true;

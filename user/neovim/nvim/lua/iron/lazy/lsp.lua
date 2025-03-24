@@ -53,6 +53,20 @@ return {
 			},
 		})
 
+		lspconfig.clangd.setup({
+			on_attach = function(client, _)
+				client.server_capabilities.signatureHelpProvider = false
+			end,
+			capabilities = capabilities,
+			settings = {
+				clangd = {
+					hint = {
+						enable = true,
+					},
+				},
+			},
+		})
+
 		vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 			pattern = { "*.hl", "hypr*.conf" },
 			callback = function(event)
@@ -92,7 +106,7 @@ return {
 			mapping = cmp.mapping.preset.insert({
 				["<C-m>"] = cmp.mapping.select_prev_item(cmp_select),
 				["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-				["<C-s>"] = cmp.mapping.confirm({ select = true }),
+				["<enter>"] = cmp.mapping.confirm(cmp_select),
 				["<C-Space>"] = cmp.mapping.complete(),
 				["<C-l>"] = cmp.mapping(function()
 					if luasnip.expand_or_locally_jumpable() then

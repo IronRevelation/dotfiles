@@ -7,6 +7,7 @@ return {
 			ensure_installed = {
 				"vimdoc",
 				"c",
+				"cpp",
 				"lua",
 				"rust",
 				"jsdoc",

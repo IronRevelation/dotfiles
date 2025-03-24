@@ -3,6 +3,7 @@ vim.g.mapleader = " "
 -- Move selected lines up and down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", ".", ":norm.<CR>")
 
 -- Keep cursor center when joining lines
 vim.keymap.set("n", "J", "mzJ`z")

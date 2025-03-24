@@ -16,6 +16,7 @@
       #vale
       clippy
       nodePackages.cspell
+      clang-tools
     ];
   };
 }
