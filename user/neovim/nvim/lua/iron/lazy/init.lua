@@ -36,4 +36,13 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = { signs = false },
 	},
+	-- with lazy.nvim
+
+	{
+		"glepnir/template.nvim",
+		cmd = { "Template", "TemProject" },
+		config = function()
+			require("template").setup({ temp_dir = "~/.config/nvim/lua/iron/templates" })
+		end,
+	},
 }

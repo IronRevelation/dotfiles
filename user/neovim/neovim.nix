@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
 
   xdg.configFile."nvim/init.lua".source = ./nvim/init.lua;
@@ -17,6 +17,9 @@
       clippy
       nodePackages.cspell
       clang-tools
+      ruff
+      pyright
+      tree-sitter
     ];
   };
 }

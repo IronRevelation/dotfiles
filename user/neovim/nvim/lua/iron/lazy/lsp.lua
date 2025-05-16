@@ -43,6 +43,8 @@ return {
 
 		lspconfig.nil_ls.setup({})
 
+		lspconfig.pyright.setup({})
+
 		lspconfig.rust_analyzer.setup({
 			settings = {
 				Rust = {
@@ -120,10 +122,15 @@ return {
 				end, { "i", "s" }),
 			}),
 			sources = cmp.config.sources({
-				{ name = "nvim_lsp" },
+				{
+					name = "nvim_lsp",
+					entry_filter = function(entry, _)
+						return require("cmp").lsp.CompletionItemKind.Snippet ~= entry:get_kind()
+					end,
+				},
 				{ name = "luasnip" }, -- For luasnip users.
-			}, {
 				{ name = "buffer" },
+				{ name = "path" },
 			}),
 		})
 

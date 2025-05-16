@@ -5,6 +5,7 @@ return {
 			-- markdown = { "vale" },
 			rust = { "clippy" },
 			cpp = { "clangtidy" },
+			python = { "ruff" },
 		}
 		vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 			callback = function()

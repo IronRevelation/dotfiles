@@ -103,11 +103,14 @@
     kooha
     #zed-editor
     code-cursor
-    python3
     distrobox
     unstable.devenv
     direnv
-    (callPackage ./user/zen.nix { })
+    python3
+    man-pages
+    telegram-desktop
+    vscode
+    #(callPackage ./user/zen.nix { })
     # # Adds the 'hello' command to your environment. It prints a friendly
 
     # # "Hello, world!" when run.

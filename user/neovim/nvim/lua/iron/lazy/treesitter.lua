@@ -9,9 +9,10 @@ return {
 				"c",
 				"cpp",
 				"lua",
-				"rust",
+				--"rust",
 				"jsdoc",
 				"bash",
+				"python",
 			},
 
 			-- Install parsers synchronously (only applied to `ensure_installed`)
