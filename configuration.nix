@@ -251,8 +251,20 @@ in
 
   # Open ports in the firewall.
   #localsend ports
-  networking.firewall.allowedTCPPorts = [ 53317 ];
-  networking.firewall.allowedUDPPorts = [ 53317 ];
+  networking.firewall = rec {
+    allowedTCPPortRanges = [
+      {
+        from = 53317;
+        to = 53317;
+      } # localsend
+      {
+        from = 1714;
+        to = 1764;
+      } # kde connect
+    ];
+    allowedUDPPortRanges = allowedTCPPortRanges;
+  };
+
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 

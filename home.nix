@@ -110,6 +110,7 @@
     man-pages
     telegram-desktop
     vscode
+    jflap
     #(callPackage ./user/zen.nix { })
     # # Adds the 'hello' command to your environment. It prints a friendly
 
@@ -129,6 +130,7 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
+  services.kdeconnect.enable = true;
 
   programs.git = {
     enable = true;
